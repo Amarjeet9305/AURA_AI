@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary text-slate-100 font-sans antialiased overflow-x-hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary rounded-full;
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px theme('colors.accent'), 0 0 20px theme('colors.accent');
+  }
+
+  .box-glow {
+    box-shadow: 0 0 15px theme('colors.accent' / 0.3);
+  }
+}
