@@ -1,97 +1,80 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote, User, Code, PenTool } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
 
-const testimonials = [
-    {
-        id: 1,
-        name: "Amarjeet",
-        role: "Company Founder",
-        image: User, // Placeholder icon
-        content: "Aura AI was born from a vision to democratize artificial intelligence. We believe in building technology that empowers businesses to achieve their full potential.",
-        rating: 5,
-        color: "text-blue-400"
-    },
-    {
-        id: 2,
-        name: "Dev Team",
-        role: "Lead Developers",
-        image: Code,
-        content: "Our code is crafted with precision and passion. We push the boundaries of what's possible, ensuring scalable and robust solutions for every client.",
-        rating: 5,
-        color: "text-purple-400"
-    },
-    {
-        id: 3,
-        name: "Content Team",
-        role: "Creative Minds",
-        image: PenTool,
-        content: "Storytelling is at the heart of connection. We weave narratives that resonate, making complex technology accessible and engaging for everyone.",
-        rating: 5,
-        color: "text-pink-400"
-    }
-];
-
-const TestimonialCard = ({ name, role, content, rating, image: Icon, color }) => (
+const TestimonialCard = ({ name, role, content, delay }) => (
     <motion.div
-        whileHover={{ y: -10 }}
-        className="bg-secondary/20 p-8 rounded-2xl border border-white/10 relative backdrop-blur-sm"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: delay }}
+        className="p-6 sm:p-8 rounded-2xl glass-card relative"
     >
-        <div className="absolute top-6 right-8 opacity-20">
-            <Quote size={40} className="text-white" />
-        </div>
+        <Quote className="absolute top-8 right-8 text-white/5" size={48} />
 
-        <div className="flex items-center gap-4 mb-6">
-            <div className={`w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 ${color}`}>
-                <Icon size={24} />
-            </div>
-            <div>
-                <h4 className="text-lg font-bold text-white">{name}</h4>
-                <p className="text-sm text-gray-400">{role}</p>
-            </div>
-        </div>
-
-        <div className="flex gap-1 mb-4">
-            {[...Array(rating)].map((_, i) => (
-                <Star key={i} size={16} className="fill-yellow-500 text-yellow-500" />
+        <div className="flex gap-1 mb-6">
+            {[...Array(5)].map((_, i) => (
+                <Star key={i} size={16} className="text-yellow-500 fill-yellow-500" />
             ))}
         </div>
 
-        <p className="text-gray-300 leading-relaxed italic">
-            "{content}"
-        </p>
+        <p className="text-gray-300 mb-8 italic relative z-10 leading-relaxed">"{content}"</p>
+
+        <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                {name.charAt(0)}
+            </div>
+            <div>
+                <h4 className="text-white font-bold">{name}</h4>
+                <p className="text-accent text-sm">{role}</p>
+            </div>
+        </div>
     </motion.div>
 );
 
 const Testimonials = () => {
+    const testimonials = [
+        {
+            name: "Sarah Johnson",
+            role: "CTO, TechFlow",
+            content: "Aura AI transformed our data analysis process. What used to take days now takes minutes. The insights are incredibly accurate."
+        },
+        {
+            name: "Michael Chen",
+            role: "Product Lead, InnovateCorp",
+            content: "The real-time processing capabilities are unmatched. We've seen a 40% increase in operational efficiency since integration."
+        },
+        {
+            name: "Emily Davis",
+            role: "Founder, StartUpX",
+            content: "Implementation was smooth and the support team is world-class. Highly recommend for any business looking to scale with AI."
+        }
+    ];
+
     return (
-        <section className="py-24 bg-gradient-to-b from-primary to-slate-900 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
+        <section className="py-16 sm:py-24 md:py-32 relative overflow-hidden">
+            {/* Decorative Elements */}
+            <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+
+            <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center mb-12 sm:mb-16 md:mb-20">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-3xl md:text-5xl font-bold text-white mb-6"
+                        transition={{ duration: 0.6 }}
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4 sm:mb-6"
                     >
-                        Voices of Aura AI
+                        Trusted by Industry Leaders
                     </motion.h2>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        Meet the visionaries and creators driving the future of intelligence.
+                    <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg px-2 sm:px-0">
+                        Don't just take our word for it. See what our partners rely on Aura AI for.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => (
-                        <motion.div
-                            key={testimonial.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
-                        >
-                            <TestimonialCard {...testimonial} />
-                        </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    {testimonials.map((t, i) => (
+                        <TestimonialCard key={i} {...t} delay={i * 0.1} />
                     ))}
                 </div>
             </div>
